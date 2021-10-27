@@ -1,5 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:budget_app/data/data.dart';
+import 'package:budget_app/widgets/bar_chart.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -17,34 +19,44 @@ class _HomePageState extends State<HomePage> {
         physics: BouncingScrollPhysics(),
         slivers: [
           SliverAppBar(
+            backgroundColor: Colors.green,
+            centerTitle: true,
+            expandedHeight: 100.0,
+            forceElevated: true,
+            pinned: true,
             leading: IconButton(
-              icon: Icon(
-                Icons.settings_outlined,
-                size: 30,
-              ),
+              icon: Icon(Icons.settings),
+              iconSize: 30,
               onPressed: () {},
             ),
             flexibleSpace: FlexibleSpaceBar(
-              title: Text("Budget App"),
+              title: Text("Simple Budget"),
             ),
-            actions: [
+            actions: <Widget>[
               IconButton(
                 onPressed: () {},
-                icon: Icon(
-                  Icons.add,
-                  size: 30,
-                ),
-              ),
+                icon: Icon(Icons.add),
+                iconSize: 30,
+              )
             ],
           ),
           SliverList(
             delegate: SliverChildBuilderDelegate((BuildContext context, index) {
               return Container(
-                margin: EdgeInsets.all(10),
-                height: 100,
-                color: Colors.red,
+                margin: EdgeInsets.fromLTRB(20, 20, 20, 10),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(10),
+                  boxShadow: [
+                    BoxShadow(
+                        color: Colors.black26,
+                        offset: Offset(0, 2),
+                        blurRadius: 6)
+                  ],
+                ),
+                child: BarChart(weeklySpending),
               );
-            }, childCount: 10),
+            }, childCount: 9),
           ),
         ],
       ),
