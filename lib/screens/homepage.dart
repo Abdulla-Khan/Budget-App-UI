@@ -6,6 +6,8 @@ import 'package:budget_app/models/expense_model.dart';
 import 'package:budget_app/widgets/bar_chart.dart';
 import 'package:flutter/material.dart';
 
+import 'colors/colorhelper.dart';
+
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
 
@@ -39,7 +41,39 @@ class _HomePageState extends State<HomePage> {
               "\$${(category.maxAmount - totalAmount).toStringAsFixed(2)}/\$${category.maxAmount}",
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
             )
-          ])
+          ]),
+          SizedBox(
+            height: 10,
+          ),
+          LayoutBuilder(
+            builder: (BuildContext context, BoxConstraints constraints) {
+              final double maxBarW = constraints.maxWidth;
+              final double percent =
+                  (category.maxAmount - totalAmount) / category.maxAmount;
+              double barWidth = percent * maxBarW;
+              if (barWidth < 0) {
+                barWidth = 0;
+              }
+              return Stack(
+                children: [
+                  Container(
+                    height: 20,
+                    decoration: BoxDecoration(
+                      color: Colors.grey[200],
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                  ),
+                  Container(
+                    height: 20,
+                    width: barWidth,
+                    decoration: BoxDecoration(
+                        color: getColor(context, percent),
+                        borderRadius: BorderRadius.circular(15)),
+                  )
+                ],
+              );
+            },
+          )
         ],
       ),
     );
@@ -49,7 +83,6 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: CustomScrollView(
-        physics: BouncingScrollPhysics(),
         slivers: [
           SliverAppBar(
             backgroundColor: Colors.green,
