@@ -6,11 +6,11 @@ class BarChart extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double mostExpensive = 0;
-    expenses.forEach((double price) {
+    for (var price in expenses) {
       if (price > mostExpensive) {
         mostExpensive = price;
       }
-    });
+    }
     return Padding(
       padding: const EdgeInsets.all(12.0),
       child: Column(
@@ -28,25 +28,26 @@ class BarChart extends StatelessWidget {
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               IconButton(
                 icon: const Icon(
                   Icons.arrow_back,
-                  size: 30,
+                  size: 20,
                 ),
                 onPressed: () {},
               ),
               const Text(
                 "Nov 1,2021 - Nov 7,2021",
                 style: TextStyle(
-                    fontSize: 18,
+                    fontSize: 14,
                     fontWeight: FontWeight.w600,
                     letterSpacing: 1.2),
               ),
               IconButton(
                 icon: const Icon(
                   Icons.arrow_forward,
-                  size: 30,
+                  size: 20,
                 ),
                 onPressed: () {},
               )
@@ -65,7 +66,7 @@ class BarChart extends StatelessWidget {
                 Bar("Wed", expenses[2], mostExpensive),
                 Bar("Thur", expenses[3], mostExpensive),
                 Bar("Fri", expenses[4], mostExpensive),
-                Bar("Sat", expenses[6], mostExpensive)
+                Bar("Sat", expenses[5], mostExpensive)
               ])
         ],
       ),
@@ -88,6 +89,7 @@ class Bar extends StatelessWidget {
       children: [
         Text("\$${amountSpent.toStringAsFixed(2)}",
             style: TextStyle(
+              fontSize: 12,
               fontWeight: FontWeight.w600,
             )),
         SizedBox(
